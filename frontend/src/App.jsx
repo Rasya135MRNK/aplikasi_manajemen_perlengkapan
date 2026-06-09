@@ -9,6 +9,8 @@ import CheckOut from './pages/CheckOut'
 import Transactions from './pages/Transactions'
 import Loans from './pages/Loans'
 import LoanForm from './pages/LoanForm'
+import Notifications from './pages/Notifications'
+import Reports from './pages/Reports'
 import Layout from './components/Layout'
 import PrivateRoute from './components/PrivateRoute'
 
@@ -32,6 +34,8 @@ export default function App() {
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/loans" element={<Loans />} />
         <Route path="/loans/add" element={<LoanForm />} />
+        <Route path="/notifications" element={<Notifications />} />
+        <Route path="/reports" element={<Reports />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

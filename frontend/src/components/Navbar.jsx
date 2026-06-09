@@ -1,4 +1,5 @@
 import useAuthStore from '../stores/authStore'
+import NotificationBadge from './NotificationBadge'
 
 export default function Navbar({ onMenuClick }) {
   const { user, logout } = useAuthStore()
@@ -17,6 +18,7 @@ export default function Navbar({ onMenuClick }) {
       <div className="hidden lg:block" />
 
       <div className="flex items-center gap-4">
+        <NotificationBadge />
         <div className="text-right">
           <p className="text-sm font-medium text-gray-700">{user?.name}</p>
           <p className="text-xs text-gray-500 capitalize">{user?.role?.replace('_', ' ')}</p>

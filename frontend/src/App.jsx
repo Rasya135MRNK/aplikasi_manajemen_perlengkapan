@@ -11,6 +11,7 @@ import Loans from './pages/Loans'
 import LoanForm from './pages/LoanForm'
 import Notifications from './pages/Notifications'
 import Reports from './pages/Reports'
+import Users from './pages/Users'
 import Layout from './components/Layout'
 import PrivateRoute from './components/PrivateRoute'
 
@@ -36,6 +37,7 @@ export default function App() {
         <Route path="/loans/add" element={<LoanForm />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/reports" element={<Reports />} />
+        <Route path="/users" element={<PrivateRoute roles={['super_admin']}><Users /></PrivateRoute>} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

@@ -26,8 +26,10 @@ const transactionRoutes = require('./routes/transactions');
 const loanRoutes = require('./routes/loans');
 const reportRoutes = require('./routes/reports');
 const notificationRoutes = require('./routes/notifications');
+const userRoutes = require('./routes/users');
 
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/items', itemRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/transactions', transactionRoutes);

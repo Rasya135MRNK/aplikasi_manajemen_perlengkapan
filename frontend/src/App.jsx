@@ -1,5 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Login from './pages/Login'
+import Dashboard from './pages/Dashboard'
+import Layout from './components/Layout'
 import PrivateRoute from './components/PrivateRoute'
 
 export default function App() {
@@ -7,13 +9,13 @@ export default function App() {
     <Routes>
       <Route path="/login" element={<Login />} />
 
-      <Route path="/" element={
+      <Route element={
         <PrivateRoute>
-          <div className="p-8 text-center text-xl">
-            Aplikasi Manajemen Perlengkapan
-          </div>
+          <Layout />
         </PrivateRoute>
-      } />
+      }>
+        <Route path="/" element={<Dashboard />} />
+      </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

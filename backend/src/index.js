@@ -17,6 +17,8 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'API is running' });
 });
 
+const { startNotificationScheduler } = require('./services/notificationService');
+
 const authRoutes = require('./routes/auth');
 const itemRoutes = require('./routes/items');
 const categoryRoutes = require('./routes/categories');
@@ -48,6 +50,7 @@ async function start() {
     console.log('Models synchronized');
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
+      startNotificationScheduler();
     });
   } catch (error) {
     console.error('Failed to start server:', error);

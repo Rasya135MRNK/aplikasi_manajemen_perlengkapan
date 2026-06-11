@@ -7,10 +7,7 @@ Sistem manajemen inventaris barang berbasis web dengan fitur **check-in/check-ou
 ## Fitur & Penjelasan
 
 ### Autentikasi & Manajemen Pengguna
-Sistem login berbasis **JWT (JSON Web Token)** dengan tiga level akses:
-- **Super Admin** &mdash; akses penuh, termasuk kelola pengguna
-- **Admin** &mdash; kelola data barang, transaksi, dan laporan
-- **Staff** &mdash; hanya dapat melakukan transaksi check-in/check-out dan peminjaman
+Sistem login berbasis **JWT (JSON Web Token)** menggunakan **username** (bukan email). Semua pengguna memiliki akses penuh ke seluruh fitur aplikasi.
 
 ### Manajemen Barang
 CRUD data barang lengkap dengan:
@@ -72,14 +69,14 @@ Tampilan responsif menggunakan **Tailwind CSS** &mdash; optimal digunakan di des
 | **Frontend** | React 19, Vite, Tailwind CSS, Zustand, Axios |
 | **Backend** | Node.js, Express.js, Sequelize ORM |
 | **Database** | MySQL 8 |
-| **Autentikasi** | JWT (Access & Refresh Token) |
+| **Autentikasi** | JWT (login dengan username) |
 | **Notifikasi** | Waha (WhatsApp Gateway, self-hosted Docker) |
 | **Upload Gambar** | Multer (penyimpanan lokal) |
 | **Container** | Docker & Docker Compose |
 
 ### Struktur Database
 
-- **users** &mdash; data pengguna & role (super_admin, admin, staff)
+- **users** &mdash; data pengguna (login dengan username)
 - **categories** &mdash; kategori barang
 - **items** &mdash; master barang (nama, stok, stok minimal, gambar)
 - **transactions** &mdash; riwayat check-in / check-out

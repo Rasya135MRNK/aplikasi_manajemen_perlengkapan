@@ -10,8 +10,8 @@ async function checkLowStock() {
       },
     });
 
-    const admins = await User.findAll({
-      where: { role: ['super_admin', 'admin'], isActive: true },
+    const users = await User.findAll({
+      where: { isActive: true },
     });
 
     for (const item of items) {
@@ -26,15 +26,15 @@ async function checkLowStock() {
 
       const message = `*Peringatan Stok Menipis*\n\nBarang: ${item.name}\nStok Saat Ini: ${item.stock}\nStok Minimal: ${item.minStock}\n\nSegera lakukan pengadaan barang.`;
 
-      for (const admin of admins) {
-        if (!admin.phone) continue;
-        const result = await sendMessage(admin.phone, message);
+      for (const user of users) {
+        if (!user.phone) continue;
+        const result = await sendMessage(user.phone, message);
 
         await Notification.create({
           itemId: item.id,
           type: 'low_stock',
           message: `Stok ${item.name} menipis (${item.stock}/${item.minStock})`,
-          recipient: admin.phone,
+          recipient: user.phone,
           status: result ? 'sent' : 'failed',
         });
       }
@@ -60,19 +60,19 @@ async function checkOverdueLoans() {
 
       const message = `*Peringatan Peminjaman Terlambat*\n\nBarang: ${loan.Item.name}\nPeminjam: ${loan.borrowerName}\nJatuh Tempo: ${loan.dueDate}\n\nSegera hubungi peminjam untuk pengembalian.`;
 
-      const admins = await User.findAll({
-        where: { role: ['super_admin', 'admin'], isActive: true },
+      const users = await User.findAll({
+        where: { isActive: true },
       });
 
-      for (const admin of admins) {
-        if (!admin.phone) continue;
-        const result = await sendMessage(admin.phone, message);
+      for (const user of users) {
+        if (!user.phone) continue;
+        const result = await sendMessage(user.phone, message);
 
         await Notification.create({
           itemId: loan.itemId,
           type: 'overdue_loan',
           message: `Peminjaman ${loan.Item.name} oleh ${loan.borrowerName} terlambat`,
-          recipient: admin.phone,
+          recipient: user.phone,
           status: result ? 'sent' : 'failed',
         });
       }

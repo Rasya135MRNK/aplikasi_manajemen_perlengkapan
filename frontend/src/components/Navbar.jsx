@@ -21,7 +21,6 @@ export default function Navbar({ onMenuClick }) {
         <NotificationBadge />
         <div className="text-right">
           <p className="text-sm font-medium text-gray-700">{user?.name}</p>
-          <p className="text-xs text-gray-500 capitalize">{user?.role?.replace('_', ' ')}</p>
         </div>
         <button
           onClick={logout}

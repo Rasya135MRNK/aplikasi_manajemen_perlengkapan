@@ -3,7 +3,7 @@ const { User } = require('../models');
 exports.index = async (req, res) => {
   try {
     const users = await User.findAll({
-      attributes: ['id', 'name', 'email', 'role', 'phone', 'isActive', 'createdAt'],
+      attributes: ['id', 'name', 'username', 'phone', 'isActive', 'createdAt'],
       order: [['createdAt', 'DESC']],
     });
     res.json({ users });

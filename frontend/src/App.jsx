@@ -37,7 +37,7 @@ export default function App() {
         <Route path="/loans/add" element={<LoanForm />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/reports" element={<Reports />} />
-        <Route path="/users" element={<PrivateRoute roles={['super_admin']}><Users /></PrivateRoute>} />
+        <Route path="/users" element={<Users />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

@@ -3,7 +3,7 @@ const { User } = require('../models');
 
 const generateToken = (user) => {
   return jwt.sign(
-    { id: user.id, role: user.role },
+    { id: user.id },
     process.env.JWT_SECRET || 'secret',
     { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
   );
@@ -11,20 +11,20 @@ const generateToken = (user) => {
 
 exports.login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
-    if (!email || !password) {
-      return res.status(400).json({ error: 'Email and password are required' });
+    if (!username || !password) {
+      return res.status(400).json({ error: 'Username and password are required' });
     }
 
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { username } });
     if (!user) {
-      return res.status(401).json({ error: 'Invalid email or password' });
+      return res.status(401).json({ error: 'Invalid username or password' });
     }
 
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      return res.status(401).json({ error: 'Invalid email or password' });
+      return res.status(401).json({ error: 'Invalid username or password' });
     }
 
     if (!user.isActive) {
@@ -38,8 +38,7 @@ exports.login = async (req, res) => {
       user: {
         id: user.id,
         name: user.name,
-        email: user.email,
-        role: user.role,
+        username: user.username,
         phone: user.phone,
       },
     });
@@ -53,8 +52,7 @@ exports.me = async (req, res) => {
     user: {
       id: req.user.id,
       name: req.user.name,
-      email: req.user.email,
-      role: req.user.role,
+      username: req.user.username,
       phone: req.user.phone,
     },
   });
@@ -62,18 +60,18 @@ exports.me = async (req, res) => {
 
 exports.register = async (req, res) => {
   try {
-    const { name, email, password, role, phone } = req.body;
+    const { name, username, password, phone } = req.body;
 
-    if (!name || !email || !password) {
-      return res.status(400).json({ error: 'Name, email, and password are required' });
+    if (!name || !username || !password) {
+      return res.status(400).json({ error: 'Name, username, and password are required' });
     }
 
-    const existing = await User.findOne({ where: { email } });
+    const existing = await User.findOne({ where: { username } });
     if (existing) {
-      return res.status(400).json({ error: 'Email already registered' });
+      return res.status(400).json({ error: 'Username already taken' });
     }
 
-    const user = await User.create({ name, email, password, role, phone });
+    const user = await User.create({ name, username, password, phone });
     const token = generateToken(user);
 
     res.status(201).json({
@@ -81,8 +79,7 @@ exports.register = async (req, res) => {
       user: {
         id: user.id,
         name: user.name,
-        email: user.email,
-        role: user.role,
+        username: user.username,
       },
     });
   } catch (error) {

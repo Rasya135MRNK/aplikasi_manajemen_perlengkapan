@@ -1,27 +1,21 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import useAuthStore from '../stores/authStore'
 
 const menuItems = [
-  { label: 'Dashboard', path: '/', icon: '📊', roles: ['super_admin', 'admin', 'staff'] },
-  { label: 'Barang', path: '/items', icon: '📦', roles: ['super_admin', 'admin', 'staff'] },
-  { label: 'Kategori', path: '/categories', icon: '🏷️', roles: ['super_admin', 'admin'] },
-  { label: 'Check-in', path: '/checkin', icon: '📥', roles: ['super_admin', 'admin', 'staff'] },
-  { label: 'Check-out', path: '/checkout', icon: '📤', roles: ['super_admin', 'admin', 'staff'] },
-  { label: 'Transaksi', path: '/transactions', icon: '📋', roles: ['super_admin', 'admin', 'staff'] },
-  { label: 'Peminjaman', path: '/loans', icon: '📝', roles: ['super_admin', 'admin', 'staff'] },
-  { label: 'Notifikasi', path: '/notifications', icon: '🔔', roles: ['super_admin', 'admin', 'staff'] },
-  { label: 'Laporan', path: '/reports', icon: '📈', roles: ['super_admin', 'admin'] },
-  { label: 'Pengguna', path: '/users', icon: '👥', roles: ['super_admin'] },
+  { label: 'Dashboard', path: '/', icon: '📊' },
+  { label: 'Barang', path: '/items', icon: '📦' },
+  { label: 'Kategori', path: '/categories', icon: '🏷️' },
+  { label: 'Check-in', path: '/checkin', icon: '📥' },
+  { label: 'Check-out', path: '/checkout', icon: '📤' },
+  { label: 'Transaksi', path: '/transactions', icon: '📋' },
+  { label: 'Peminjaman', path: '/loans', icon: '📝' },
+  { label: 'Notifikasi', path: '/notifications', icon: '🔔' },
+  { label: 'Laporan', path: '/reports', icon: '📈' },
+  { label: 'Pengguna', path: '/users', icon: '👥' },
 ]
 
 export default function Sidebar({ open, onClose }) {
-  const { user } = useAuthStore()
   const [collapsed, setCollapsed] = useState(false)
-
-  const visibleItems = menuItems.filter(
-    (item) => user && item.roles.includes(user.role)
-  )
 
   return (
     <>
@@ -51,7 +45,7 @@ export default function Sidebar({ open, onClose }) {
         </div>
 
         <nav className="p-2 space-y-1 overflow-y-auto h-[calc(100%-64px)]">
-          {visibleItems.map((item) => (
+          {menuItems.map((item) => (
             <NavLink
               key={item.path}
               to={item.path}

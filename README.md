@@ -7,7 +7,7 @@ Sistem manajemen inventaris barang berbasis web dengan fitur **check-in/check-ou
 ## Fitur & Penjelasan
 
 ### Autentikasi & Manajemen Pengguna
-Sistem login berbasis **JWT (JSON Web Token)** menggunakan **username** (bukan email). Semua pengguna memiliki akses penuh ke seluruh fitur aplikasi.
+Sistem login berbasis **JWT (JSON Web Token)** menggunakan **username** . Semua pengguna memiliki akses penuh ke seluruh fitur aplikasi.
 
 ### Manajemen Barang
 CRUD data barang lengkap dengan:
